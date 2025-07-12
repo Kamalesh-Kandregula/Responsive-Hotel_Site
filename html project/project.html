@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +52,10 @@
       gap: 5px;
     }
 
+    .hamburger {
+      display: none;
+    }
+
     .hamburger-checkbox {
       display: none;
     }
@@ -63,6 +68,11 @@
       border-radius: 6px;
       background: none;
       border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .hamburger-label:hover {
+      background-color: #f0f0f0;
     }
 
     .hamburger-label span {
@@ -70,6 +80,7 @@
       height: 2px;
       background-color: #555;
       margin: 2px 0;
+      transition: all 0.3s ease;
       display: block;
     }
 
@@ -125,7 +136,12 @@
       font-size: 15px;
       color: #555;
       cursor: pointer;
+      transition: background-color 0.3s ease;
       display: block;
+    }
+
+    .mobile-menu-label:hover {
+      background-color: #f8f9fa;
     }
 
     .mobile-submenu {
@@ -145,12 +161,18 @@
       text-decoration: none;
       font-size: 13px;
       border-bottom: 1px solid #e0e0e0;
+      transition: background-color 0.2s ease;
+    }
+
+    .mobile-submenu a:hover {
+      background-color: #e9e9e9;
     }
 
     .mobile-submenu a:last-child {
       border-bottom: none;
     }
 
+    /* Updated styles for click-based dropdowns */
     .menu-box {
       position: relative;
     }
@@ -165,6 +187,7 @@
       cursor: pointer;
       padding: 8px 12px;
       border-radius: 8px;
+      transition: background-color 0.3s ease;
       text-decoration: none;
       display: block;
       border: none;
@@ -172,8 +195,10 @@
       font-family: inherit;
     }
 
+    .menu-button:hover,
     .menu-checkbox:checked + .menu-button {
       background-color: #f0f0f0;
+      color: #555;
     }
 
     .menu-dropdown {
@@ -200,6 +225,11 @@
       text-decoration: none;
       display: block;
       font-size: 13px;
+      transition: background-color 0.2s;
+    }
+
+    .menu-dropdown a:hover {
+      background-color: #f1f1f1;
     }
 
     .submenu-thing {
@@ -216,6 +246,7 @@
       padding: 8px 16px;
       text-decoration: none;
       font-size: 13px;
+      transition: background-color 0.2s;
       cursor: pointer;
       border: none;
       background: none;
@@ -224,6 +255,7 @@
       font-family: inherit;
     }
 
+    .submenu-item:hover,
     .submenu-checkbox:checked + .submenu-item {
       background-color: #f1f1f1;
     }
@@ -257,8 +289,35 @@
       text-decoration: none;
       padding: 8px;
       border-radius: 50%;
+      transition: all 0.3s ease;
     }
 
+    .icon-links a:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-2px);
+    }
+
+    .slide-thing {
+      position: relative;
+    }
+
+    .slide-info {
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      position: absolute;
+      bottom: 20%;
+      left: 10%;
+      color: white;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+      z-index: 1;
+    }
+
+    .slide-info>div+div{
+      padding-top: 50px;
+    }
         .carousel-item {
   position: relative;
 }
@@ -310,20 +369,13 @@
     transform: scale(1);
   }
 }
-
-    .slide-info {
-      display: flex;
-      justify-content: space-between;
-      width: 80%;
-      position: absolute;
-      bottom: 20%;
-      left: 10%;
-      color: white;
-      z-index: 1;
+    .slide-thing.active .slide-info {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .slide-info>div+div{
-      padding-top: 50px;
+    .slide-thing {
+      transition: opacity 0.5s ease-in-out;
     }
 
     .text-section{
@@ -343,8 +395,26 @@
       justify-content: space-evenly;
     }
 
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
     .pic-1, .pic-2, .pic-3 {
       width: 360px;
+      opacity: 0;
+      transform: scale(0.8);
+      animation-name: popIn;
+      animation-fill-mode: both;
+      animation-duration: 2s;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
     }
 
     .big-banner {
@@ -360,29 +430,62 @@
       object-fit: cover;
     }
 
+    @keyframes planeMove {
+      0% {
+        offset-distance: 0%;
+      }
+      100% {
+        offset-distance: 100%;
+      }
+    }
+
+    @keyframes bannerMove {
+      0% {
+        offset-distance: 0%;
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        offset-distance: 100%;
+        opacity: 0;
+      }
+    }
+
     .flying-plane {
       position: absolute;
       top: 80%;
       left: -10%;
       font-size: 40px;
       transform: rotate(45deg);
+      offset-path: path("M0,0 C200,-200 400,-200 800,-350");
+      offset-distance: 0%;
+      offset-rotate: auto;
+      animation: planeMove 6s linear infinite;
       z-index: 2;
     }
 
     .floating-banner {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 80%;
+      left: -10%;
       padding: 20px 50px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
       border-radius: 25px;
       color: #222;
       font-size: 22px;
       font-weight: 600;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
+      transform: rotate(-10deg);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      offset-path: path("M0,0 C200,-200 400,-200 800,-350");
+      offset-distance: 0%;
+      offset-rotate: auto;
+      animation: bannerMove 6s linear infinite;
+      animation-delay: 1.5s;
       z-index: 1;
     }
 
@@ -496,6 +599,7 @@
       font-size: 13px;
     }
 
+    /* Close dropdown when clicking outside */
     .dropdown-overlay {
       position: fixed;
       top: 0;
@@ -932,82 +1036,82 @@
   </div>
 </div>
 
-<div class="Carousel">
-  <div id="carouselExampleControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="beautiful-natural-autumn-scene.jpg" alt="First slide">
-        <div class="slide-info">
-          <div>
-          <h1>Cabin Life</h1>
-          <p>Luxury in nature</p>
+ <div class="Carousel">
+    <div id="carouselExampleControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" src="beautiful-natural-autumn-scene.jpg" alt="First slide">
+          <div class="Details">
+            <div>
+            <h1>Cabin Life</h1>
+            <p>Luxury in nature</p>
+            </div>
+            <div>
+              <button>More about the Suite</button>
+            </div>
           </div>
-          <div>
-            <button>More about the Suite</button>
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="interior-design-neoclassical-style-with-furnishings-decor.jpg" alt="Second slide">
+          <div class="Details">
+            <div>
+            <h1>Royal Black</h1>
+            <p>Pure Class of the Goths</p>
+            </div>
+            <div>
+              <button>More about the Suite</button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="view-futuristic-lighting-lamp-design.jpg" alt="Third slide">
+          <div class="Details">
+            <div>
+            <h1>Winters Delight</h1>
+            <p>Warmth is your comfort</p>
+            </div>
+            <div>
+              <button>More about the Suite</button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="neoclassical-style-interior-design-with-decor-furnishings.jpg" alt="Fourth slide">
+          <div class="Details">
+            <div>
+            <h1>Suite of the Royal Youth</h1>
+            <p>A Rooms for the Prince</p>
+            </div>
+            <div>
+              <button>More about the Suite</button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="modern-living-room-with-large-windows-comfortable-furniture.jpg" alt="Fifth slide">
+          <div class="Details">
+            <div>
+            <h1>Suburban Family Paradise</h1>
+            <p>Practical and lived in</p>
+            </div>
+            <div>
+              <button>More about the Suite</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="interior-design-neoclassical-style-with-furnishings-decor.jpg" alt="Second slide">
-        <div class="slide-info">
-          <div>
-          <h1>Royal Black</h1>
-          <p>Pure Class of the Goths</p>
-          </div>
-          <div>
-            <button>More about the Suite</button>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="view-futuristic-lighting-lamp-design.jpg" alt="Third slide">
-        <div class="slide-info">
-          <div>
-          <h1>Winters Delight</h1>
-          <p>Warmth is your comfort</p>
-          </div>
-          <div>
-            <button>More about the Suite</button>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="neoclassical-style-interior-design-with-decor-furnishings.jpg" alt="Fourth slide">
-        <div class="slide-info">
-          <div>
-          <h1>Suite of the Royal Youth</h1>
-          <p>A Rooms for the Prince</p>
-          </div>
-          <div>
-            <button>More about the Suite</button>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="modern-living-room-with-large-windows-comfortable-furniture.jpg" alt="Fifth slide">
-        <div class="slide-info">
-          <div>
-          <h1>Suburban Family Paradise</h1>
-          <p>Practical and lived in</p>
-          </div>
-          <div>
-            <button>More about the Suite</button>
-          </div>
-        </div>
-      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
   </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <div class="text-section">
