@@ -1,17 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Hotels For You - Mobile Optimized</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
     
     .navbar {
@@ -21,6 +25,7 @@
       position: fixed;
       top: 20px;
       z-index: 1000;
+      padding: 0 10px;
     }
 
     .topbar {
@@ -44,6 +49,7 @@
       margin: 0;
       font-size: 14px;
       font-weight: bold;
+      white-space: nowrap;
     }
 
     .menu-stuff {
@@ -108,6 +114,8 @@
       margin-top: 10px;
       overflow: hidden;
       z-index: 1000;
+      max-height: 70vh;
+      overflow-y: auto;
     }
 
     .hamburger-checkbox:checked ~ .mobile-menu {
@@ -129,15 +137,16 @@
 
     .mobile-menu-label {
       width: 100%;
-      padding: 12px 20px;
+      padding: 15px 20px;
       background: none;
       border: none;
       text-align: left;
-      font-size: 15px;
+      font-size: 16px;
       color: #555;
       cursor: pointer;
       transition: background-color 0.3s ease;
       display: block;
+      font-weight: 500;
     }
 
     .mobile-menu-label:hover {
@@ -156,10 +165,10 @@
 
     .mobile-submenu a {
       display: block;
-      padding: 8px 40px;
+      padding: 12px 40px;
       color: #666;
       text-decoration: none;
-      font-size: 13px;
+      font-size: 14px;
       border-bottom: 1px solid #e0e0e0;
       transition: background-color 0.2s ease;
     }
@@ -172,7 +181,7 @@
       border-bottom: none;
     }
 
-    /* Updated styles for click-based dropdowns */
+    /* Desktop menu styles */
     .menu-box {
       position: relative;
     }
@@ -297,16 +306,26 @@
       transform: translateY(-2px);
     }
 
-    .slide-thing {
+    /* Carousel styles */
+    .carousel-item {
       position: relative;
+      height: 100vh;
+      min-height: 400px;
     }
 
-    .slide-info {
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .Details {
       display: flex;
       justify-content: space-between;
+      align-items: flex-end;
       width: 80%;
       position: absolute;
-      bottom: 20%;
+      bottom: 15%;
       left: 10%;
       color: white;
       opacity: 0;
@@ -315,84 +334,107 @@
       z-index: 1;
     }
 
-    .slide-info>div+div{
-      padding-top: 50px;
+    .Details > div:first-child h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
-        .carousel-item {
-  position: relative;
-}
 
-.Details {
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  position: absolute;
-  bottom: 20%;
-  left: 10%;
-  color: white;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1s ease, transform 1s ease;
-  z-index: 1;
-}
-.Details>div+div{
-  padding-top: 50px;
-}
-.carousel-item.active .Details {
-  opacity: 1;
-  transform: translateY(0);
-}
-.carousel-item {
-  transition: opacity 0.5s ease-in-out;
-}
-.description{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-}
-.description div{
-  justify-items: center;
-}
-.First-Grid{
-  display: flex;
-  justify-content: space-evenly;
-}
-@keyframes fadeInPop {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-    .slide-thing.active .slide-info {
+    .Details > div:first-child p {
+      font-size: 1.2rem;
+      margin-bottom: 0;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .Details > div:last-child button {
+      background-color: rgba(255,255,255,0.9);
+      color: #333;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .Details > div:last-child button:hover {
+      background-color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .carousel-item.active .Details {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .slide-thing {
-      transition: opacity 0.5s ease-in-out;
-    }
-
-    .text-section{
+    .text-section {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 300px;
-      font-family:Verdana, Geneva, Tahoma, sans-serif;
+      min-height: 300px;
+      padding: 60px 20px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
-    .text-section div{
-      justify-items: center;
+    .text-section div {
+      text-align: center;
+      max-width: 800px;
     }
 
-    .photo-row{
-      display: flex;
-      justify-content: space-evenly;
+    .text-section h3 {
+      font-size: 1.8rem;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .text-section p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .photo-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pic-1, .pic-2, .pic-3 {
+      text-align: center;
+      opacity: 0;
+      transform: scale(0.8);
+      animation-name: popIn;
+      animation-fill-mode: both;
+      animation-duration: 0.8s;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    .pic-1 img, .pic-2 img, .pic-3 img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pic-1 h1, .pic-2 h1, .pic-3 h1 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .pic-1 p, .pic-2 p, .pic-3 p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #666;
     }
 
     @keyframes popIn {
@@ -404,17 +446,6 @@
         opacity: 1;
         transform: scale(1);
       }
-    }
-
-    .pic-1, .pic-2, .pic-3 {
-      width: 360px;
-      opacity: 0;
-      transform: scale(0.8);
-      animation-name: popIn;
-      animation-fill-mode: both;
-      animation-duration: 2s;
-      animation-timeline: view();
-      animation-range: entry 0% cover 30%;
     }
 
     .big-banner {
@@ -471,7 +502,7 @@
       top: 80%;
       left: -10%;
       padding: 20px 50px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(4px);
       border-radius: 25px;
       color: #222;
@@ -491,8 +522,10 @@
 
     .photo-grid-1 {
       display: grid;
-      gap: 15px;
-      padding: 30px;
+      gap: 20px;
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
       grid-template-columns: 2fr 1fr;
       grid-template-rows: 1fr 1fr;
       grid-template-areas: 
@@ -505,6 +538,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 10px;
     }
 
     .small-top {
@@ -512,6 +546,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 10px;
     }
 
     .small-bottom {
@@ -519,47 +554,21 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 10px;
     }
 
     .photo-grid-2 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      padding: 30px 15%;
-      grid-template-areas:
-        "photo1 photo2"
-        "photo3 photo4";
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
-    .photo1 {
-      grid-area: photo1;
+    .photo1, .photo2, .photo3, .photo4 {
       width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .photo2 {
-      grid-area: photo2;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .photo3 {
-      grid-area: photo3;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    .photo4 {
-      grid-area: photo4;
-      width: 100%;
-      height: auto;
+      height: 250px;
       object-fit: cover;
       border-radius: 10px;
     }
@@ -568,35 +577,34 @@
       background-color: #12141c;
       color: #fff;
       text-align: center;
-      padding: 30px 20px;
+      padding: 40px 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .bottom-section .icon-links {
       background-color: white;
-      padding: 15px 0;
+      padding: 20px 0;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
     }
 
     .bottom-section .icon-links a {
       color: #222;
-      margin: 0 10px;
-      font-size: 20px;
+      margin: 0 15px;
+      font-size: 24px;
       text-decoration: none;
     }
 
-    .bottom-text {
-      margin-top: 20px;
-    }
-
     .bottom-text p {
-      margin: 5px 0;
-      letter-spacing: 2px;
-      font-size: 14px;
+      margin: 8px 0;
+      letter-spacing: 1px;
+      font-size: 16px;
     }
 
     .small-text {
       color: #888;
-      font-size: 13px;
+      font-size: 14px;
     }
 
     /* Close dropdown when clicking outside */
@@ -614,22 +622,25 @@
       display: block;
     }
 
-    @media (max-width: 768px) {
+    /* Enhanced Mobile Responsiveness */
+    @media (max-width: 480px) {
       .navbar {
         top: 10px;
-        padding: 0 10px;
+        padding: 0 5px;
       }
 
       .topbar {
         width: 95%;
         height: auto;
-        padding: 8px 15px;
+        padding: 10px 15px;
+        border-radius: 20px;
         position: relative;
       }
 
       .topbar p {
-        font-size: 12px;
+        font-size: 11px;
         padding: 6px 12px;
+        border-radius: 12px;
       }
 
       .menu-stuff {
@@ -641,8 +652,7 @@
       }
 
       .icon-links {
-        gap: 10px;
-        justify-content: center;
+        gap: 8px;
       }
 
       .icon-links a {
@@ -650,103 +660,248 @@
         padding: 6px;
       }
 
-      .slide-info {
+      /* Carousel mobile optimization */
+      .carousel-item {
+        height: 70vh;
+        min-height: 350px;
+      }
+
+      .Details {
         width: 90%;
         left: 5%;
         bottom: 10%;
         flex-direction: column;
-        gap: 10px;
+        align-items: flex-start;
+        gap: 15px;
       }
 
-      .slide-info > div + div {
-        padding-top: 10px;
+      .Details > div:first-child h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
       }
 
-      .slide-info h1 {
-        font-size: 1.5rem;
+      .Details > div:first-child p {
+        font-size: 1rem;
       }
 
-      .slide-info p {
-        font-size: 0.9rem;
+      .Details > div:last-child {
+        align-self: stretch;
       }
 
+      .Details > div:last-child button {
+        width: 100%;
+        padding: 15px 20px;
+        font-size: 16px;
+      }
+
+      /* Text sections mobile */
       .text-section {
-        height: auto;
-        padding: 20px 10px;
-      }
-
-      .text-section div {
-        width: 100% !important;
+        padding: 40px 15px;
+        min-height: auto;
       }
 
       .text-section h3 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
+        font-size: 1.3rem;
+        line-height: 1.3;
       }
 
+      .text-section p {
+        font-size: 0.9rem;
+      }
+
+      /* Photo grid mobile */
       .photo-row {
-        flex-direction: column;
-        padding: 20px 10px;
-        gap: 20px;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 40px 15px;
       }
 
-      .pic-1, .pic-2, .pic-3 {
-        width: 100%;
-        max-width: 100%;
+      .pic-1 img, .pic-2 img, .pic-3 img {
+        height: 200px;
       }
 
+      .pic-1 h1, .pic-2 h1, .pic-3 h1 {
+        font-size: 1.3rem;
+      }
+
+      .pic-1 p, .pic-2 p, .pic-3 p {
+        font-size: 0.9rem;
+      }
+
+      /* Photo grids mobile */
       .photo-grid-1 {
         grid-template-columns: 1fr;
         grid-template-areas: 
           "big-pic"
           "small-top"
           "small-bottom";
-        padding: 15px;
-        gap: 10px;
+        padding: 40px 15px;
+        gap: 15px;
       }
 
       .photo-grid-2 {
         grid-template-columns: 1fr;
-        grid-template-areas:
-          "photo1"
-          "photo2"
-          "photo3"
-          "photo4";
-        padding: 15px 5%;
         gap: 15px;
+        padding: 40px 15px;
       }
 
+      .photo1, .photo2, .photo3, .photo4 {
+        height: 200px;
+      }
+
+      /* Banner mobile */
       .big-banner {
-        height: 250px;
+        height: 200px;
       }
 
       .floating-banner {
-        font-size: 14px;
-        padding: 10px 20px;
+        font-size: 12px;
+        padding: 8px 16px;
+        border-radius: 15px;
       }
 
       .flying-plane {
-        font-size: 25px;
+        font-size: 20px;
       }
 
+      /* Footer mobile */
       .bottom-section {
-        padding: 20px 10px;
+        padding: 30px 15px;
       }
 
       .bottom-section .icon-links {
-        padding: 10px 0;
+        padding: 15px 0;
+        margin-bottom: 15px;
+      }
+
+      .bottom-section .icon-links a {
+        font-size: 20px;
+        margin: 0 10px;
       }
 
       .bottom-text p {
+        font-size: 14px;
+        margin: 5px 0;
+      }
+
+      .small-text {
         font-size: 12px;
-        margin: 3px 0;
+      }
+
+      /* Mobile menu enhancements */
+      .mobile-menu {
+        max-height: 60vh;
+        border-radius: 12px;
+      }
+
+      .mobile-menu-label {
+        padding: 18px 20px;
+        font-size: 16px;
+      }
+
+      .mobile-submenu a {
+        padding: 15px 30px;
+        font-size: 14px;
+      }
+    }
+
+    @media (min-width: 481px) and (max-width: 768px) {
+      .navbar {
+        top: 15px;
+        padding: 0 8px;
+      }
+
+      .topbar {
+        width: 92%;
+        padding: 10px 20px;
+      }
+
+      .topbar p {
+        font-size: 12px;
+        padding: 7px 14px;
+      }
+
+      .menu-stuff {
+        display: none;
+      }
+
+      .hamburger-label {
+        display: flex;
+      }
+
+      .icon-links {
+        gap: 12px;
+      }
+
+      .icon-links a {
+        font-size: 17px;
+        padding: 7px;
+      }
+
+      .carousel-item {
+        height: 80vh;
+        min-height: 400px;
+      }
+
+      .Details {
+        width: 85%;
+        left: 7.5%;
+        bottom: 12%;
+      }
+
+      .Details > div:first-child h1 {
+        font-size: 2.2rem;
+      }
+
+      .Details > div:first-child p {
+        font-size: 1.1rem;
+      }
+
+      .text-section {
+        padding: 50px 20px;
+      }
+
+      .text-section h3 {
+        font-size: 1.5rem;
+      }
+
+      .photo-row {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 50px 20px;
+      }
+
+      .photo-grid-1 {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+          "big-pic big-pic"
+          "small-top small-bottom";
+        padding: 50px 20px;
+      }
+
+      .photo-grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 50px 20px;
+      }
+
+      .big-banner {
+        height: 300px;
+      }
+
+      .floating-banner {
+        font-size: 16px;
+        padding: 12px 24px;
+      }
+
+      .flying-plane {
+        font-size: 30px;
       }
     }
 
     @media (min-width: 769px) and (max-width: 1024px) {
       .topbar {
         width: 90%;
-        padding: 8px 20px;
+        padding: 10px 25px;
       }
 
       .menu-stuff {
@@ -755,48 +910,34 @@
 
       .menu-button {
         font-size: 14px;
-        padding: 6px 8px;
+        padding: 7px 10px;
       }
 
       .menu-dropdown {
         min-width: 180px;
       }
 
-      .slide-info {
-        width: 85%;
-        left: 7.5%;
+      .Details {
+        width: 80%;
+        left: 10%;
       }
 
-      .slide-info h1 {
-        font-size: 1.8rem;
+      .Details > div:first-child h1 {
+        font-size: 2.5rem;
       }
 
       .photo-row {
-        flex-direction: column;
-        padding: 30px 15px;
-        gap: 30px;
-      }
-
-      .pic-1, .pic-2, .pic-3 {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        padding: 60px 30px;
       }
 
       .photo-grid-1 {
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: 
-          "big-pic big-pic"
-          "small-top small-bottom";
-        padding: 20px;
+        padding: 60px 30px;
       }
 
       .photo-grid-2 {
-        padding: 20px 10%;
-      }
-
-      .text-section div {
-        width: 70% !important;
+        padding: 60px 30px;
       }
     }
 
@@ -805,7 +946,7 @@
         max-width: 1400px;
       }
 
-      .slide-info {
+      .Details {
         width: 75%;
         left: 12.5%;
       }
@@ -823,7 +964,44 @@
       .photo-grid-2 {
         max-width: 1000px;
         margin: 0 auto;
-        padding: 30px 5%;
+        padding: 60px 5%;
+      }
+    }
+
+    /* Touch-friendly improvements */
+    @media (hover: none) and (pointer: coarse) {
+      .menu-button, .mobile-menu-label, .mobile-submenu a {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+
+      .Details > div:last-child button {
+        min-height: 44px;
+        font-size: 16px;
+      }
+
+      .icon-links a {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    /* Improved animations for mobile */
+    @media (prefers-reduced-motion: reduce) {
+      .pic-1, .pic-2, .pic-3 {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      .flying-plane, .floating-banner {
+        animation: none;
+        position: static;
+        transform: none;
       }
     }
   </style>
@@ -1036,153 +1214,164 @@
   </div>
 </div>
 
- <div class="Carousel">
-    <div id="carouselExampleControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img class="d-block w-100" src="beautiful-natural-autumn-scene.jpg" alt="First slide">
-          <div class="Details">
-            <div>
+<div class="Carousel">
+  <div id="carouselExampleControls" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Cabin Life">
+        <div class="Details">
+          <div>
             <h1>Cabin Life</h1>
             <p>Luxury in nature</p>
-            </div>
-            <div>
-              <button>More about the Suite</button>
-            </div>
           </div>
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="interior-design-neoclassical-style-with-furnishings-decor.jpg" alt="Second slide">
-          <div class="Details">
-            <div>
-            <h1>Royal Black</h1>
-            <p>Pure Class of the Goths</p>
-            </div>
-            <div>
-              <button>More about the Suite</button>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="view-futuristic-lighting-lamp-design.jpg" alt="Third slide">
-          <div class="Details">
-            <div>
-            <h1>Winters Delight</h1>
-            <p>Warmth is your comfort</p>
-            </div>
-            <div>
-              <button>More about the Suite</button>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="neoclassical-style-interior-design-with-decor-furnishings.jpg" alt="Fourth slide">
-          <div class="Details">
-            <div>
-            <h1>Suite of the Royal Youth</h1>
-            <p>A Rooms for the Prince</p>
-            </div>
-            <div>
-              <button>More about the Suite</button>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="modern-living-room-with-large-windows-comfortable-furniture.jpg" alt="Fifth slide">
-          <div class="Details">
-            <div>
-            <h1>Suburban Family Paradise</h1>
-            <p>Practical and lived in</p>
-            </div>
-            <div>
-              <button>More about the Suite</button>
-            </div>
+          <div>
+            <button>More about the Suite</button>
           </div>
         </div>
       </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Royal Black">
+        <div class="Details">
+          <div>
+            <h1>Royal Black</h1>
+            <p>Pure Class of the Goths</p>
+          </div>
+          <div>
+            <button>More about the Suite</button>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Winters Delight">
+        <div class="Details">
+          <div>
+            <h1>Winters Delight</h1>
+            <p>Warmth is your comfort</p>
+          </div>
+          <div>
+            <button>More about the Suite</button>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Royal Youth Suite">
+        <div class="Details">
+          <div>
+            <h1>Suite of the Royal Youth</h1>
+            <p>A Room for the Prince</p>
+          </div>
+          <div>
+            <button>More about the Suite</button>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img class="d-block w-100" src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Family Paradise">
+        <div class="Details">
+          <div>
+            <h1>Suburban Family Paradise</h1>
+            <p>Practical and lived in</p>
+          </div>
+          <div>
+            <button>More about the Suite</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-<div class="text-section">
-  <div>
-  <h3>Freya Inc. is the hub for top architects and inventors,</h3>
-  <h3>ready to turn your imagination into reality</h3> <br>
-  <p>All photographs provided for demo purposes only.</p>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="text-section">
+  <div>
+    <h3>Freya Inc. is the hub for top architects and inventors,</h3>
+    <h3>ready to turn your imagination into reality</h3>
+    <br>
+    <p>All photographs provided for demo purposes only.</p>
+  </div>
+</div>
+
 <div class="photo-row">
   <div class="pic-1">
-    <img src="img_1.jpg" alt="">
+    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Residential">
     <h1>Residential</h1>
     <p>From Manitoba to Brooklyn, affordable, comfortable and livable houses for families of all shapes and sizes are covered by us. Cras justo odio, dapibus, egestas eget quam lorem ipsum.</p>
   </div>
   <div class="pic-2"> 
-    <img src="img_2.jpg" alt="">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Commercial">
     <h1>Commercial</h1>
     <p>We have also designing interiors for restaurants, bar or office spaces. Cras mattis consectetur purus sit amet fermentum. Cum sociis natoque penatibus et magnis dolor.</p>
   </div>
   <div class="pic-3">
-    <img src="img_3.jpg" alt="">
+    <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Hospitality">
     <h1>Hospitality</h1>
     <p>You need your guests to have an unforgettable experience, Freya Inc. is ready to deliver. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Fusce dapibus.</p>
   </div>
 </div>
 
 <div class="big-banner">
-<img src="wallpaperflare.com_wallpaper.jpg" alt="">
-<div class="floating-banner">Flanders Hotel, New Jersey</div>
-<div class="flying-plane">✈</div>
+  <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Banner">
+  <div class="floating-banner">Flanders Hotel, New Jersey</div>
+  <div class="flying-plane">✈</div>
 </div>
+
 <div class="text-section">
   <div style="width: 50%;">
-  <h3>A coffee shop gains a warmer look</h3><br>
-  <p>Museo coffees got in touch with Freya for their renovation. We took over and asked them to have a cup of coffee for themselves while the job is done! Sed posuere consectetur est at lobortis. Fusce dapibs, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Duis mollis, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Pellentsque ornare se lacinia quam venenatis vestibulum. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+    <h3>A coffee shop gains a warmer look</h3>
+    <br>
+    <p>Museo coffees got in touch with Freya for their renovation. We took over and asked them to have a cup of coffee for themselves while the job is done! Sed posuere consectetur est at lobortis. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Duis mollis, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Pellentesque ornare sem lacinia quam venenatis vestibulum. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
   </div>
 </div>
+
 <div class="photo-grid-1"> 
-<img src="img_4.jpg" alt="" class="big-pic">
-<img src="img_5.jpg" alt="" class="small-top">
-<img src="img_6.jpg" alt="" class="small-bottom">
+  <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Coffee Shop Main" class="big-pic">
+  <img src="https://images.unsplash.com/photo-1442975631115-c4f7b05b8a2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Coffee Detail 1" class="small-top">
+  <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Coffee Detail 2" class="small-bottom">
 </div>
+
 <div class="big-banner">
-<img src="wallpaperflare-cropped.jpg" alt="">
-<div class="floating-banner">Hotels in scenic places</div>
-<div class="flying-plane">✈</div>
+  <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Scenic Banner">
+  <div class="floating-banner">Hotels in scenic places</div>
+  <div class="flying-plane">✈</div>
 </div>
+
 <div class="text-section">
-<div style="width: 50%;">
-  <h3>Luxury Meets Landscape</h3><br>
-  <p>Our scenic location hotels are designed to bring you closer to nature without compromising on elegance. Whether nestled in the hills or by the sea, each suite offers panoramic views, modern comforts, and a peaceful ambiance. Let your stay be as beautiful as the place around you.</p>
+  <div style="width: 50%;">
+    <h3>Luxury Meets Landscape</h3>
+    <br>
+    <p>Our scenic location hotels are designed to bring you closer to nature without compromising on elegance. Whether nestled in the hills or by the sea, each suite offers panoramic views, modern comforts, and a peaceful ambiance. Let your stay be as beautiful as the place around you.</p>
+  </div>
 </div>
-</div>
+
 <div class="photo-grid-2">
-<img src="img_10.jpg" alt="Interior 1" class="photo1">
-<img src="img_11.jpg" alt="Interior 2" class="photo2">
-<img src="img_12.jpg" alt="Interior 3" class="photo3">
-<img src="img_13.jpg" alt="Interior 4" class="photo4">
+  <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Interior 1" class="photo1">
+  <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Interior 2" class="photo2">
+  <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Interior 3" class="photo3">
+  <img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Interior 4" class="photo4">
 </div>
+
 <footer class="bottom-section">
-<div class="icon-links">
-  <a href="#"><i class="bi bi-linkedin"></i></a>
-  <a href="#"><i class="bi bi-twitter-x"></i></a>
-  <a href="#"><i class="bi bi-github"></i></a>
-</div>
-<div class="bottom-text">
-  <p>My Project</p>
-  <p class="small-text">Created by Kamalesh</p>
-  <p class="small-text">Reference from Themewagon</p>
-</div>
+  <div class="icon-links">
+    <a href="#"><i class="bi bi-linkedin"></i></a>
+    <a href="#"><i class="bi bi-twitter-x"></i></a>
+    <a href="#"><i class="bi bi-github"></i></a>
+  </div>
+  <div class="bottom-text">
+    <p>My Project</p>
+    <p class="small-text">Created by Kamalesh</p>
+    <p class="small-text">Reference from Themewagon</p>
+  </div>
 </footer>
 
 </body>
